@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import ReactMarkdown from 'react-markdown'

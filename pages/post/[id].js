@@ -9,6 +9,9 @@ import { AccountContext } from "../../context";
 import { contractAddress, ownerAddress } from "../../config";
 import Blog from "../../utils/Blog.json";
 
+
+const GOERLI_URL = process.env.GOERLI_URL;
+
 const ipfsURI = "https://ipfs.io/ipfs/"
 
 export default function Post({ post }) {
@@ -60,13 +63,16 @@ export default function Post({ post }) {
 export async function getStaticPaths() {
 //fetch all blog posts
     let provider
-    if(process.env.ENVIRONMENT === 'local') {
-    provider = new ethers.providers.JsonRpcProvider()
-    } else if(process.env.ENVIRONMENT === 'testnet') {
-    provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.matic.today")
-    } else {
-    provider = new ethers.providers.JsonRpcProvider('https://polygon-rpc.com')
-    }
+    provider = new ethers.providers.JsonRpcProvider(GOERLI_URL)
+
+    
+    // if(process.env.ENVIRONMENT === 'local') {
+    // provider = new ethers.providers.JsonRpcProvider()
+    // } else if(process.env.ENVIRONMENT === 'testnet') {
+    // provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.matic.today")
+    // } else {
+    // provider = new ethers.providers.JsonRpcProvider('https://polygon-rpc.com')
+    // }
 
     const contract = new ethers.Contract(contractAddress, Blog.abi, provider)
     const data = await contract.fetchPosts()
