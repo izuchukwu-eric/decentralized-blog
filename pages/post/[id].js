@@ -10,7 +10,7 @@ import { contractAddress, ownerAddress } from "../../config";
 import Blog from "../../utils/Blog.json";
 
 
-const GOERLI_URL = process.env.GOERLI_URL;
+const GOERLI_URL = process.env.NEXT_GOERLI_URL;
 
 const ipfsURI = "https://ipfs.io/ipfs/"
 
@@ -65,7 +65,7 @@ export async function getStaticPaths() {
     let provider
     provider = new ethers.providers.JsonRpcProvider(GOERLI_URL)
 
-    
+
     // if(process.env.ENVIRONMENT === 'local') {
     // provider = new ethers.providers.JsonRpcProvider()
     // } else if(process.env.ENVIRONMENT === 'testnet') {

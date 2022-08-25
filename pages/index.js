@@ -8,6 +8,8 @@ import { AccountContext } from "../context"
 import { contractAddress, ownerAddress} from '../config'
 import Blog from '../utils/Blog.json'
 
+const GOERLI_URL = process.env.NEXT_GOERLI_URL;
+
 export default function Home(props) {
   const { posts } = props
   const account = useContext(AccountContext)
@@ -59,13 +61,15 @@ export default function Home(props) {
 
 export async function getServerSideProps() {
   let provider
-  if(process.env.ENVIRONMENT === 'local') {
-    provider = new ethers.providers.JsonRpcProvider()
-  } else if(process.env.ENVIRONMENT === 'testnet') {
-    provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.matic.today")
-  } else {
-    provider = new ethers.providers.JsonRpcProvider('https://polygon-rpc.com')
-  }
+  // if(process.env.ENVIRONMENT === 'local') {
+  //   provider = new ethers.providers.JsonRpcProvider()
+  // } else if(process.env.ENVIRONMENT === 'testnet') {
+  //   provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.matic.today")
+  // } else {
+  //   provider = new ethers.providers.JsonRpcProvider('https://polygon-rpc.com')
+  // }
+  provider = new ethers.providers.JsonRpcProvider(GOERLI_URL)
+
 
   const contract = new ethers.Contract(contractAddress, Blog.abi, provider)
   const data = await contract.fetchPosts()
