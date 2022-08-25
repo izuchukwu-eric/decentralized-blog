@@ -8,11 +8,15 @@ import { create } from 'ipfs-http-client'
 
 import { contractAddress } from "../../config";
 import Blog from "../../utils/Blog.json";
+require("dotenv").config();
+
 
 const SimpleMDE = dynamic(
     () => import('react-simplemde-editor'),
     { ssr: false }
 )
+
+const GOERLI_URL = process.env.GOERLI_URL;
 
 const ipfsURI = "https://ipfs.io/ipfs/"
 const client = create('https://ipfs.infura.io:5001/api/v0');
@@ -31,14 +35,17 @@ export default function Post() {
     async function fetchPost() {
         /* we first fetch the individual post by ipfs hash from the network */
         if (!id) return
+
         let provider
-        if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'local') {
-        provider = new ethers.providers.JsonRpcProvider()
-        } else if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'testnet') {
-        provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.matic.today")
-        } else {
-        provider = new ethers.providers.JsonRpcProvider('https://polygon-rpc.com')
-        }
+        provider = new ethers.providers.JsonRpcProvider(GOERLI_URL)
+
+        // if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'local') {
+        // provider = new ethers.providers.JsonRpcProvider()
+        // } else if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'testnet') {
+        // provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.matic.today")
+        // } else {
+        // provider = new ethers.providers.JsonRpcProvider('https://polygon-rpc.com')
+        // }
 
         const contract = new ethers.Contract(contractAddress, Blog.abi, provider)
         const val = await contract.fetchPost(id)
