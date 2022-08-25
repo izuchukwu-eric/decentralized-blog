@@ -7,7 +7,7 @@ import { ethers } from 'ethers'
 import { create } from 'ipfs-http-client'
 
 import { contractAddress } from "../../config";
-import Blog from "../../artifacts/contracts/Blog.sol/Blog.json";
+import Blog from "../../utils/Blog.json";
 
 const SimpleMDE = dynamic(
     () => import('react-simplemde-editor'),

@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { AccountContext } from "../context"
 
 import { contractAddress, ownerAddress} from '../config'
-import Blog from '../artifacts/contracts/Blog.sol/Blog.json'
+import Blog from '../utils/Blog.json'
 
 export default function Home(props) {
   const { posts } = props
