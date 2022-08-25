@@ -8,6 +8,7 @@ import { create } from 'ipfs-http-client'
 
 import { contractAddress } from "../../config";
 import Blog from "../../utils/Blog.json";
+require("dotenv").config();
 
 
 const SimpleMDE = dynamic(
