@@ -8,7 +8,6 @@ import { create } from 'ipfs-http-client'
 
 import { contractAddress } from "../../config";
 import Blog from "../../utils/Blog.json";
-require("dotenv").config();
 
 
 const SimpleMDE = dynamic(
@@ -16,7 +15,7 @@ const SimpleMDE = dynamic(
     { ssr: false }
 )
 
-const GOERLI_URL = process.env.GOERLI_URL;
+const GOERLI_URL = import.meta.env.GOERLI_URL;
 
 const ipfsURI = "https://ipfs.io/ipfs/"
 const client = create('https://ipfs.infura.io:5001/api/v0');
