@@ -11,13 +11,13 @@ import Blog from "../../utils/Blog.json";
 
 const ipfsID = process.env.NEXT_IPFS_ID;
 const ipfsSecret = process.env.NEXT_IPFS_SECRET;
+const GOERLI_URL = process.env.NEXT_GOERLI_URL;
 
 const SimpleMDE = dynamic(
     () => import('react-simplemde-editor'),
     { ssr: false }
 )
 
-const GOERLI_URL = process.env.NEXT_GOERLI_URL;
 
 const ipfsURI = "https://ipfs.io/ipfs/"
 // const client = create('https://ipfs.infura.io:5001/api/v0');
