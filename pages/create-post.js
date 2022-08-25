@@ -4,11 +4,28 @@ import dynamic from 'next/dynamic'
 import { css } from '@emotion/css'
 import { ethers } from 'ethers'
 import { create } from 'ipfs-http-client'
-
+import { Buffer } from 'buffer';
 import { contractAddress } from '../config'
 import Blog from '../utils/Blog.json'
 
-const client = create('https://ipfs.infura.io:5001/api/v0');
+const ipfsID = process.env.NEXT_IPFS_ID;
+const ipfsSecret = process.env.NEXT_IPFS_SECRET;
+
+const projectID = ipfsID;
+const projectSecret = ipfsSecret;
+const auth = 'Basic ' + Buffer.from(projectID + ':' + projectSecret).toString('base64');
+
+console.log(projectID);
+
+const client = create({
+    host: "ipfs.infura.io",
+    port: 5001,
+    protocol: "https",
+    headers: {
+        authorization: auth
+    },
+});
+
 
 const SimpleMDE = dynamic(
     () => import('react-simplemde-editor'),
@@ -59,7 +76,7 @@ function CreatePost() {
             try {
                 const val = await contract.createPost(post.title, hash)
                 /** optional - wait for transaction to be confirmed before rerouting */
-                // await provider.waitForTransaction(val.hash) 
+                await provider.waitForTransaction(val.hash) 
                 console.log('val:', val)
             } catch (error) {
                 console.log('Error:', error)

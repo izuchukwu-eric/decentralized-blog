@@ -1,4 +1,3 @@
-// require("dotenv").config();
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import ReactMarkdown from 'react-markdown'
@@ -6,10 +5,12 @@ import { css } from '@emotion/css'
 import dynamic from 'next/dynamic'
 import { ethers } from 'ethers'
 import { create } from 'ipfs-http-client'
-
+import { Buffer } from 'buffer';
 import { contractAddress } from "../../config";
 import Blog from "../../utils/Blog.json";
 
+const ipfsID = process.env.NEXT_IPFS_ID;
+const ipfsSecret = process.env.NEXT_IPFS_SECRET;
 
 const SimpleMDE = dynamic(
     () => import('react-simplemde-editor'),
@@ -19,7 +20,21 @@ const SimpleMDE = dynamic(
 const GOERLI_URL = process.env.NEXT_GOERLI_URL;
 
 const ipfsURI = "https://ipfs.io/ipfs/"
-const client = create('https://ipfs.infura.io:5001/api/v0');
+// const client = create('https://ipfs.infura.io:5001/api/v0');
+const projectID = ipfsID;
+const projectSecret = ipfsSecret;
+const auth = 'Basic ' + Buffer.from(projectID + ':' + projectSecret).toString('base64');
+
+console.log(projectID);
+
+const client = create({
+    host: "ipfs.infura.io",
+    port: 5001,
+    protocol: "https",
+    headers: {
+        authorization: auth
+    },
+});
 
 export default function Post() {
     const [post, setPost] = useState(null)
@@ -80,7 +95,8 @@ export default function Post() {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
         const contract = new ethers.Contract(contractAddress, Blog.abi, signer)
-        await contract.updatePost(post.id, post.title, hash, true)
+        const val = await contract.updatePost(post.id, post.title, hash, true)
+        await provider.waitForTransaction(val.hash) 
         router.push("/")
     }
 
