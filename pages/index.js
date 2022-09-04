@@ -8,7 +8,7 @@ import { AccountContext } from "../context"
 import { contractAddress, ownerAddress} from '../config'
 import Blog from '../utils/Blog.json'
 
-const GOERLI_URL = process.env.NEXT_GOERLI_URL;
+const GOERLI_URL = process.env.NEXT_PUBLIC_GOERLI_URL;
 
 export default function Home(props) {
   const { posts } = props

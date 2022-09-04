@@ -10,7 +10,7 @@ import { contractAddress, ownerAddress } from "../../config";
 import Blog from "../../utils/Blog.json";
 
 
-const GOERLI_URL = process.env.NEXT_GOERLI_URL;
+const GOERLI_URL = process.env.NEXT_PUBLIC_GOERLI_URL;
 
 const ipfsURI = "https://ipfs.io/ipfs/"
 

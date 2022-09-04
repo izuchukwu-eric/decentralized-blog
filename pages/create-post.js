@@ -8,8 +8,8 @@ import { Buffer } from 'buffer';
 import { contractAddress } from '../config'
 import Blog from '../utils/Blog.json'
 
-const ipfsID = process.env.NEXT_IPFS_ID;
-const ipfsSecret = process.env.NEXT_IPFS_SECRET;
+const ipfsID = process.env.NEXT_PUBLIC_IPFS_ID;
+const ipfsSecret = process.env.NEXT_PUBLIC_IPFS_SECRET;
 
 const projectID = ipfsID;
 const projectSecret = ipfsSecret;

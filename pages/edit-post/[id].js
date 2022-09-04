@@ -9,9 +9,9 @@ import { Buffer } from 'buffer';
 import { contractAddress } from "../../config";
 import Blog from "../../utils/Blog.json";
 
-const ipfsID = process.env.NEXT_IPFS_ID;
-const ipfsSecret = process.env.NEXT_IPFS_SECRET;
-const GOERLI_URL = process.env.NEXT_GOERLI_URL;
+const ipfsID = process.env.NEXT_PUBLIC_IPFS_ID;
+const ipfsSecret = process.env.NEXT_PUBLIC_IPFS_SECRET;
+const GOERLI_URL = process.env.NEXT_PUBLIC_GOERLI_URL;
 
 const SimpleMDE = dynamic(
     () => import('react-simplemde-editor'),
